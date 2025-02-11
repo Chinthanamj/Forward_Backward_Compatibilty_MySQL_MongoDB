@@ -1,27 +1,22 @@
 package com.cars24.csms.service;
 
-import com.cars24.csms.data.entity.MongoEntity;
+import com.cars24.csms.data.documents.MongoEntity_v1;
 import com.cars24.csms.data.repositories.MongoRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
+@RequiredArgsConstructor
 public class MongoService {
-    @Autowired
-    private MongoRepo serviceRepository;
 
-//    public MongoEntity createService(String name, double price) {
-//        return serviceRepository.save(new MongoEntity(name, price));
-//    }
+    private final MongoRepo customerMongoRepository;
 
-
-    public MongoEntity createService(String name, double price, String description) {
-        return serviceRepository.save(new MongoEntity(name, price, description));
+    public MongoEntity_v1 getCustomerByPhone(String phone) {
+        return customerMongoRepository.findByPhone(phone)
+                .orElseThrow(() -> new RuntimeException("No customer found with phone: " + phone));
     }
 
-    public List<MongoEntity> getAllServices() {
-        return serviceRepository.findAll();
+    public MongoEntity_v1 saveCustomer(MongoEntity_v1 customer) {
+        return customerMongoRepository.save(customer);
     }
 }

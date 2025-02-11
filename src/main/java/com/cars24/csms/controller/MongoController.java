@@ -1,25 +1,24 @@
 package com.cars24.csms.controller;
 
-import com.cars24.csms.data.entity.MongoEntity;
+import com.cars24.csms.data.documents.MongoEntity_v1;
 import com.cars24.csms.service.MongoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/mongo/services")
+@RequestMapping("/customer/mongo") // Separate endpoint for MongoDB
+@RequiredArgsConstructor
 public class MongoController {
-    @Autowired
-    private MongoService serviceService;
 
-    @PostMapping("/create")
-    public MongoEntity createService(@RequestParam String name, @RequestParam double price, @RequestParam String description) {
-        return serviceService.createService(name, price,description);
+    private final MongoService customerMongoService;
+
+    @PostMapping("/save")
+    public MongoEntity_v1 saveCustomer(@RequestBody MongoEntity_v1 customer) {
+        return customerMongoService.saveCustomer(customer);
     }
 
-    @GetMapping("/all")
-    public List<MongoEntity> getAllServices() {
-        return serviceService.getAllServices();
+    @GetMapping("/get")
+    public MongoEntity_v1 getCustomer(@RequestParam String phone) {
+        return customerMongoService.getCustomerByPhone(phone);
     }
 }

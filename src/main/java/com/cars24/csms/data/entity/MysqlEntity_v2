@@ -1,0 +1,28 @@
+//package com.cars24.csms.data.entity;
+//import jakarta.persistence.*;
+//import lombok.Data;
+//
+//@Data
+//@Entity
+//@Table(name = "customers")
+//public class MysqlEntity_v2 {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int customer_id;
+//
+//    @Column(nullable = false)
+//    private String name;
+//
+//    @Column(nullable = false, unique = true)
+//    private String phone;
+//
+//    @Column(nullable = false, unique = true)
+//    private String email;
+//
+//    @Column(nullable = false)
+//    private String address;
+//
+//    @Column(columnDefinition = "TEXT") // Newly added field in V2
+//    private String description;
+//}
